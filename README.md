@@ -69,8 +69,8 @@ This project is designed to manage, analyze, and provide summaries of a codebase
 ### Setup
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/naeem-md93/programming-assistant.git
-   cd programming-assistant
+   git clone https://github.com/naeem-md93/coding-assistant.git
+   cd coding-assistant
    ```
 
 2. **Install Dependencies:**
