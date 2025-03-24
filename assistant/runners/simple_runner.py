@@ -29,6 +29,7 @@ class SimpleRunner:
 
             self.project_path = configs.pop("project_path")
             self.file_extensions = configs.pop("file_extensions")
+            self.exclude_dirs = configs.pop("exclude_dirs")
             self.update_summary = False
             logging.info("Initialization complete")
 
@@ -93,7 +94,7 @@ class SimpleRunner:
     def update_project_index(self) -> None:
         try:
             logging.info("Updating project index")
-            project_files = utils.get_file_paths(self.project_path, self.file_extensions)
+            project_files = utils.get_file_paths(self.project_path, self.file_extensions, self.exclude_dirs)
 
             self.remove_old_project_indexes(project_files)
 

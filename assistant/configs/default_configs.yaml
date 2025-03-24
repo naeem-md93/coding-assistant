@@ -1,6 +1,11 @@
-checkpoints_path: "./assistant_data"
+checkpoints_path: "./assistant_data"                            # Location of indexing checkpoints (project summary, indexes, history)
 embedding_model_name: "sentence-transformers/all-MiniLM-L6-v2"
 llm_model_name: "Qwen/Qwen2.5-Coder-32B-Instruct"
-
-project_path: "./assistant"
-file_extensions: ['.py', ".yaml"]
+project_path: "./"                                              # Project path to be indexed
+file_extensions:                                                # Only these file extensions in the project_path will be indexed
+  - '.py'
+  - ".yaml"
+  - ".json"
+exclude_dirs:                                                  # This excludes directories from indexing
+  - "assistant_data"                                           # assistant's checkpoint path
+  - ".venv/"                                                   # pyton virtualenv path

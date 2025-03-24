@@ -3,7 +3,7 @@
 ## Project Overview
 
 ### Purpose and Scope
-This project automates the analysis and summarization of codebases and project directories. It leverages pre-trained transformer models to generate embeddings and descriptions of file contents, and uses language models to provide comprehensive summaries and responses to user queries based on the indexed data. The main functionalities include indexing and managing project files, generating descriptions, and interacting with the user to provide contextually relevant information.
+This project is designed to manage, analyze, and provide summaries of a codebase or project directory. It leverages file handling utilities, embedding, indexing, and language models to offer insights and descriptions of the files and the project as a whole. The system is flexible, supporting various configuration options to tailor the analysis to specific needs.
 
 ### Key Features and Functionalities
 
@@ -43,18 +43,24 @@ This project automates the analysis and summarization of codebases and project d
         - `PROJECT_DESCRIPTION_SYSTEM_PROMPT` and `PROJECT_DESCRIPTION_USER_PROMPT`: Define the prompts for generating comprehensive project descriptions.
         - `USER_RESPOND_SYSTEM_PROMPT` and `USER_RESPOND_USER_PROMPT`: Define the prompts for guiding AI responses to user queries.
 
-### Configuration
-- **Default Configurations (`./assistant/configs/default_configs.yaml`):**
-    - Holds essential settings such as paths to checkpoints and data, model names for embeddings and language tasks, and file extensions to manage.
-
 ### Latest Updates or Changes
-- The `utils` module has been enhanced with comprehensive file handling functions, including reading, writing, and hashing for both text and JSON files.
-- The `SimpleRunner` class in the `runners` module now supports more robust file index management, with methods like `remove_old_project_indexes`, `check_file_index`, and `update_project_index`.
-- The `JsonIndexer` class includes additional functionalities for processing data after reading and before writing, ensuring that embeddings are stored and retrieved efficiently.
-- Prompts for content and project descriptions have been standardized and centralized in the `prompts` module, making the system more modular and easier to maintain.
-- The interaction methods in the `llm` module (`LMStudioLLM`, `OpenRouterLLM`, `HuggingFaceLLM`) have been refined to ensure consistent and efficient processing of user queries and responses.
+- **Enhanced Configuration Handling:** The `read_yaml_configs` function now returns a `ConfigBox` for easier access and manipulation of configuration settings.
+- **Integrated Indexers:** `JsonIndexer` and `TextIndexer` classes provide robust methods for content management, including appending and clearing data.
+- **Embedding Capabilities:** The `SimpleEmbedder` supports batch embedding, allowing for efficient processing of multiple texts at once.
+- **Improved Language Model Interactions:** The `LMStudioLLM` and `OpenRouterLLM` classes offer more flexible and versatile interactions with language models, adapting to different use cases and user inputs.
 
-## How to Use This Project
+## Project Structure
+
+- **Package Initialization:** The `__init__.py` files in various packages (`utils`, `runners`, `indexers`, `embedders`, `llm`) initialize and define the public APIs of these modules, ensuring only necessary functions and classes are exposed.
+- **Main Script (`how_it_works.py`):** This script serves as the entry point, initializing a `SimpleRunner` with configurations from `configs.yaml` and running the process.
+
+## Configuration Files
+
+- **Default Configurations (`default_configs.yaml`):** Set essential paths, model names, and file handling rules.
+- **Custom Configurations (`configs.yaml`):** Allow customization of configurations for specific projects and use cases.
+
+
+## Usage
 
 ### Prerequisites
 - Python 3.12 or newer
@@ -88,17 +94,30 @@ This project automates the analysis and summarization of codebases and project d
     nano config.yaml
     ```
     
-6. **Run and Index Your Project:**
-   - see `how_it_works.py` file for instructions on how to use it.
-   
-### Example
-The assistant first needs to index your project files.
+### Running the Project
 
-```python
-from assistant.runners import SimpleRunner
+1. Ensure all dependencies are installed.
+2. Run the main script:
+   ```bash
+   python how_it_works.py
+   ```
 
-# Pass your config file
-runner = SimpleRunner("path-to-your-config-file")
-runner.run()
+### Example Configuration
+
+```yaml
+checkpoints_path: "./assistant_data"
+embedding_model_name: "sentence-transformers/all-MiniLM-L6-v2"
+llm_model_name: "Qwen/Qwen2.5-Coder-32B-Instruct"
+project_path: "./"
+file_extensions:
+  - '.py'
+  - '.yaml'
+  - '.json'
+exclude_dirs:
+  - "assistant_data/"
+  - ".venv/"
 ```
-after a complete indexing, it will prompt you to get your request
+
+## Contributing
+
+Contributions are welcome!
