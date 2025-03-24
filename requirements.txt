@@ -1,0 +1,5 @@
+torch
+sentence-transformers
+pyyaml
+python-box
+python-dotenv

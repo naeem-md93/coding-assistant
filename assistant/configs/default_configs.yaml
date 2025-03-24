@@ -1,0 +1,6 @@
+checkpoints_path: "./assistant_data"
+embedding_model_name: "sentence-transformers/all-MiniLM-L6-v2"
+llm_model_name: "Qwen/Qwen2.5-Coder-32B-Instruct"
+
+project_path: "./assistant"
+file_extensions: ['.py', ".yaml"]
