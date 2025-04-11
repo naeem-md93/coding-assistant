@@ -1,6 +1,6 @@
 
 
-def read_text_file(path: str) -> str:
-    with open(path, "r") as f:
-        data = f.read()
-    return data
+def read_text_file(file_path: str) -> str:
+    with open(file_path, 'r') as stream:
+        content = stream.read()
+    return content

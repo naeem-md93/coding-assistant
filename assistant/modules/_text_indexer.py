@@ -16,7 +16,7 @@ class TextIndexer:
     def update_content(self, text) -> None:
         self.content = text
 
-    def append_content(self, text: str, separator: str) -> None:
+    def append_content(self, text: str, separator: str = "\n") -> None:
         self.content += separator
         self.content += text
 

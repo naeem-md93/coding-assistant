@@ -1,5 +1,11 @@
+requests
+transformers
+scikit-learn
+tqdm
+numpy
 torch
 sentence-transformers
 pyyaml
 python-box
 python-dotenv
+optimum

@@ -1,11 +1,20 @@
-checkpoints_path: "./assistant_data"                            # Location of indexing checkpoints (project summary, indexes, history)
-embedding_model_name: "sentence-transformers/all-MiniLM-L6-v2"
-llm_model_name: "Qwen/Qwen2.5-Coder-32B-Instruct"
-project_path: "./"                                              # Project path to be indexed
-file_extensions:                                                # Only these file extensions in the project_path will be indexed
-  - '.py'
-  - ".yaml"
-  - ".json"
-exclude_dirs:                                                  # This excludes directories from indexing
-  - "assistant_data/"                                           # assistant's checkpoint path
-  - ".venv/"                                                   # pyton virtualenv path
+checkpoints_path: "./assistant_data"
+
+# sentence-transformers/all-MiniLM-L6-v2
+# jinaai/jina-embeddings-v2-base-code
+embedding_model_name: "jinaai/jina-embeddings-v2-base-code"
+llm_model_name: "qwen/qwen-2.5-coder-32b-instruct:free"
+project_path: "./"
+file_extensions:
+  - ".py"
+ignore_dirs:
+  - "assistant_data"
+  - "venv"
+  - ".venv"
+  - ".git"
+  - ".vscode"
+  - "__pycache__"
+  - "node_modules"
+  - "build"
+  - "dist"
+  - "__OLD__"

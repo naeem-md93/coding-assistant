@@ -1,7 +1,7 @@
-from assistant.runners import SimpleRunner
+from assistant import ProjectManager
 
 
 if __name__ == '__main__':
 
-    runner = SimpleRunner("./assistant/configs/default_configs.yaml")
+    runner = ProjectManager("./assistant/configs/default_configs.yaml")
     runner.run()

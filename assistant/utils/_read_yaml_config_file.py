@@ -2,9 +2,9 @@ import yaml
 from box import ConfigBox
 
 
-def read_yaml_configs(path: str) -> ConfigBox:
+def read_yaml_config_file(file_path: str) -> ConfigBox:
     """Loads YAML configs """
-    with open(path, 'r') as stream:
+    with open(file_path, 'r') as stream:
         cfgs = yaml.safe_load(stream)
 
     cfgs = ConfigBox(cfgs)
