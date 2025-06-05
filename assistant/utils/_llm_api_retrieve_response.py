@@ -35,6 +35,7 @@ def llm_api_retrieve_response(
     data.update(kwargs)
 
     response = requests.post(url=api_url, headers=headers, data=json.dumps(data))
+    print(vars(response))
     response = response.json()["choices"][0]["message"]["content"]
 
     if "</think>" in response:

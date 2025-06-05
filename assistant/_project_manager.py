@@ -6,8 +6,8 @@ from .modules import (
     TransformersEmbedder,
     JsonIndexer,
     TextIndexer,
-    OpenRouterLLM,
-    FileManager
+    FileManager,
+    TogetherAILLM
 )
 
 
@@ -15,19 +15,19 @@ class ProjectManager:
     def __init__(self, config_file_path: str) -> None:
 
         configs = utils.read_yaml_config_file(config_file_path)
+        print(f"{configs=}")
 
-        checkpoint_path = configs.pop("checkpoints_path")
+        self.checkpoint_path = configs.pop("checkpoints_path")
         self.project_path = configs.pop("project_path")
-        self.file_extensions = configs.pop("file_extensions")
+        self.include_extensions = configs.pop("include_extensions")
         self.ignore_dirs = configs.pop("ignore_dirs")
 
-        self.file_change_tracker = JsonIndexer(checkpoint_path, "file_change_tracker.json")
-        self.project_indexer = JsonIndexer(checkpoint_path, "project_index.json")
-        self.summary_indexer = TextIndexer(checkpoint_path, "project_summary.txt")
-        self.history = TextIndexer(checkpoint_path, "conversation_history.md")
-
+        self.project_indexer = JsonIndexer(self.checkpoint_path, "project_index.json")
+        self.summary_indexer = TextIndexer(self.checkpoint_path, "project_summary.txt")
+        self.history = TextIndexer(self.checkpoint_path, "conversation_history.md")
+        #
         self.embedder = TransformersEmbedder(configs.pop("embedding_model_name"))
-        self.llm = OpenRouterLLM(configs.pop("llm_model_name"))
+        self.llm = TogetherAILLM(configs.pop("llm_model_name"))
 
     def get_file_objs_for_indexing(self, project_file_paths: List[str]) -> List[FileManager]:
 
@@ -59,7 +59,7 @@ class ProjectManager:
         self.project_indexer.add_data(file_obj.path, {
             "path": file_obj.path,
             "hash": file_obj.hash,
-            "type": file_obj.extensions,
+            "ext": file_obj.ext,
             "content": file_obj.content,
             "last_modified": utils.get_now(),
             "embedding": self.embedder.batch_embed([file_obj.content]).tolist()[0]
@@ -69,7 +69,7 @@ class ProjectManager:
     def run(self) -> None:
 
         while True:
-            project_file_paths = utils.get_project_file_paths(self.project_path, self.file_extensions, self.ignore_dirs)
+            project_file_paths = utils.get_project_file_paths(self.project_path, self.include_extensions, self.ignore_dirs)
 
             indexing_file_objs = self.get_file_objs_for_indexing(project_file_paths)
 

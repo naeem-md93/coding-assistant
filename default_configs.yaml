@@ -1,0 +1,14 @@
+checkpoints_path: "./.assistant_data"
+project_path: "./"
+embedding_model_name: "sentence-transformers/all-MiniLM-L6-v2"
+llm_model_name: "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"
+include_extensions:
+  - ".py"
+ignore_dirs:
+  - ".assistant_data"
+  - ".idea"
+  - ".venv"
+  - ".git"
+  - ".vscode"
+  - "__pycache__"
+  - "__OLD__"

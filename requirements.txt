@@ -9,3 +9,4 @@ pyyaml
 python-box
 python-dotenv
 optimum
+together
